@@ -1,34 +1,26 @@
-import tweepy
+#!/usr/bin/env python
+import sys
+from twython import Twython
 
-# define class for using tweepy Twitter api
-class TwitterAPI:
-    # constructor
-    def __init__(self, ck, cs, at, ats):
-        consumer_key = ck
-        consumer_secret = cs
-        auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-        access_token = at
-        access_token_secret = ats
-        auth.set_access_token(access_token, access_token_secret)
-        self.api = tweepy.API(auth)
+tweetStr = "Wooo! command line tweeting!"
 
-    # send tweet
-    def tweet(self, message):
-        self.api.update_status(status=message)
+# open file with access keys and tokens
+f = open("/home/kimbsy/Documents/ORTHRUS.access")
 
-if __name__ == '__main__':
+# assign keys and tokens
+secrets = f.read().split('\n')
 
-    # open file with access keys and tokens
-    f = open("/home/kimbsy/Documents/ORTHRUS.access")
+# sort them
+apiKey = secrets[0]
+apiSecret = secrets[1]
+accessToken = secrets[2]
+accessTokenSecret = secrets[3]
 
-    # assign keys and tokens
-    ck = f.readline()
-    cs = f.readline()
-    at = f.readline()
-    ats = f.readline()
+# instantiate Twython
+api = Twython(apiKey,apiSecret,accessToken,accessTokenSecret)
 
-    # instantiate twitter class
-    twitter = TwitterAPI(ck, cs, at, ats)
+# tweet
+api.update_status(status=tweetStr)
 
-    # send tweet
-    # twitter.tweet("Hello World!")
+print "Tweeted: " + tweetStr
+
