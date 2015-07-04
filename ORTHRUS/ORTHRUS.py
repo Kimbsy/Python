@@ -2,6 +2,7 @@
 import sys
 from twython import Twython
 
+# figure out what we're going to tweet
 tweetStr = "Wooo! command line tweeting!"
 
 # open file with access keys and tokens
@@ -20,7 +21,6 @@ accessTokenSecret = secrets[3]
 api = Twython(apiKey,apiSecret,accessToken,accessTokenSecret)
 
 # tweet
-api.update_status(status=tweetStr)
+# api.update_status(status=tweetStr)
 
-print "Tweeted: " + tweetStr
-
+print(tweetStr)
